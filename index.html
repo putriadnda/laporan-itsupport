@@ -502,7 +502,9 @@ function render() {
         .toLowerCase()
         .trim();
 
-    const filtered = reports.filter(r =>
+    
+const filtered = reports
+    .filter(r =>
         [
             r.unit,
             r.kegiatan,
@@ -510,7 +512,13 @@ function render() {
             r.jenis,
             r.status
         ].join(" ").toLowerCase().includes(keyword)
-    );
+    )
+    .sort((a, b) => {
+        const dateA = new Date(a.tanggal + "T" + a.waktu);
+        const dateB = new Date(b.tanggal + "T" + b.waktu);
+
+        return dateB - dateA;
+    });
 
     $("reportRows").innerHTML = filtered.length
 
